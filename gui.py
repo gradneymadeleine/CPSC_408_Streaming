@@ -11,69 +11,10 @@ db_ops = db_op()
 #data for db
 streaming_data = csv_files.data_cleaner("netflix_titles.csv")
 
-def select_record():
-    s_s_box.delete(0,END)
-    s_id_box.delete(0,END)
-    type_box.delete(0,END)
-    title_box.delete(0,END)
-    director_box.delete(0,END)
-    cast_box.delete(0,END)
-    country_box.delete(0,END)
-    date_added_box.delete(0,END)
-    release_year_box.delete(0,END)
-    rating_box.delete(0,END)
-    duration_box.delete(0,END)
-    listed_in_box.delete(0,END)
-    description_box.delete(0,END)
-
-    #Grab record number
-    selected = tree.focus()
-    select = watch.focus()
-    #grab record VALUES
-    values = tree.item(selected, 'values')
-    value = watch.item(select, 'values')
-
-    s_s_box.insert(0, values[0])
-    s_id_box.insert(0, values[1])
-    type_box.insert(0, values[2])
-    title_box.insert(0, values[3])
-    director_box.insert(0, values[4])
-    cast_box.insert(0, values[5])
-    country_box.insert(0, values[6])
-    date_added_box.insert(0, values[7])
-    release_year_box.insert(0, values[8])
-    rating_box.insert(0, values[9])
-    duration_box.insert(0, values[10])
-    listed_in_box.insert(0, values[11])
-    description_box.insert(0, values[12])
-
 
 #create binding click function
 def clicker(event):
     select_record()
-
-
-#add record
-def add_record():
-    watch.insert("", 0, values=(s_s_box.get(), s_id_box.get(), type_box.get(), title_box.get(), director_box.get(), cast_box.get(), country_box.get(), date_added_box.get(), release_year_box.get(), rating_box.get(), duration_box.get(), listed_in_box.get(), description_box.get()))
-
-#clear boxes
-    s_s_box.delete(0, END)
-    s_id_box.delete(0, END)
-    type_box.delete(0, END)
-    title_box.delete(0, END)
-    director_box.delete(0, END)
-    cast_box.delete(0, END)
-    country_box.delete(0, END)
-    date_added_box.delete(0, END)
-    release_year_box.delete(0, END)
-    rating_box.delete(0, END)
-    duration_box.delete(0, END)
-    listed_in_box.delete(0, END)
-    description_box.delete(0, END)
-
-
-
 
 
 
@@ -190,71 +131,71 @@ w_data_frame = LabelFrame(watchlist_frame, text="Record")
 w_data_frame.pack(fill = "x", expand = "yes", padx= 20)
 
 
-s1 = Label(w_data_frame, text = "streaming_site")
-s1.grid(row=0, column=0, padx = 7, pady =7)
-s_s_box = Entry(w_data_frame)
-s_s_box.grid(row=0, column=1, padx = 7, pady =7)
+s2 = Label(w_data_frame, text = "streaming_site")
+s2.grid(row=0, column=0, padx = 7, pady =7)
+s_s_box2 = Entry(w_data_frame)
+s_s_box2.grid(row=0, column=1, padx = 7, pady =7)
 
-i1 = Label(w_data_frame, text="show_id")
-i1.grid(row=0, column=2, padx = 7, pady =7)
-s_id_box = Entry(w_data_frame)
-s_id_box.grid(row=0, column=3, padx = 7, pady =7)
+i2 = Label(w_data_frame, text="show_id")
+i2.grid(row=0, column=2, padx = 7, pady =7)
+s_id_box2 = Entry(w_data_frame)
+s_id_box2.grid(row=0, column=3, padx = 7, pady =7)
 
-t1 = Label(w_data_frame, text = "type")
-t1.grid(row=0, column=4, padx = 7, pady =7)
-type_box = Entry(w_data_frame)
-type_box.grid(row=0, column=5,padx = 7, pady =7)
+t2 = Label(w_data_frame, text = "type")
+t2.grid(row=0, column=4, padx = 7, pady =7)
+type_box2 = Entry(w_data_frame)
+type_box2.grid(row=0, column=5,padx = 7, pady =7)
 
-title1 = Label(w_data_frame, text = "title")
-title1.grid(row=0, column=6, padx = 7, pady =7)
-title_box = Entry(w_data_frame)
-title_box.grid(row=0, column=7, padx = 7, pady =7)
+title2 = Label(w_data_frame, text = "title")
+title2.grid(row=0, column=6, padx = 7, pady =7)
+title_box2 = Entry(w_data_frame)
+title_box2.grid(row=0, column=7, padx = 7, pady =7)
 
-d1 = Label(w_data_frame, text = "director")
-d1.grid(row=1, column=0,padx = 7, pady =7)
-director_box = Entry(w_data_frame)
-director_box.grid(row=1, column=1,padx = 7, pady =7)
+d2 = Label(w_data_frame, text = "director")
+d2.grid(row=1, column=0,padx = 7, pady =7)
+director_box2 = Entry(w_data_frame)
+director_box2.grid(row=1, column=1,padx = 7, pady =7)
 
 
-c1 = Label(w_data_frame, text = "cast")
-c1.grid(row=1, column=2, padx = 7, pady =7)
-cast_box = Entry(w_data_frame)
-cast_box.grid(row=1, column=3, padx = 7, pady =7)
+c2 = Label(w_data_frame, text = "cast")
+c2.grid(row=1, column=2, padx = 7, pady =7)
+cast_box2 = Entry(w_data_frame)
+cast_box2.grid(row=1, column=3, padx = 7, pady =7)
 
-country1 = Label(w_data_frame, text = "country")
-country1.grid(row=1, column=4, padx = 7, pady =7)
-country_box = Entry(w_data_frame)
-country_box.grid(row=1, column=5, padx = 7, pady =7)
+country2 = Label(w_data_frame, text = "country")
+country2.grid(row=1, column=4, padx = 7, pady =7)
+country_box2 = Entry(w_data_frame)
+country_box2.grid(row=1, column=5, padx = 7, pady =7)
 
-date_added1 = Label(w_data_frame, text = "date_added")
-date_added1.grid(row=2, column=0, padx = 7, pady =7)
-date_added_box = Entry(w_data_frame)
-date_added_box.grid(row=2, column=1, padx = 7, pady =7)
+date_added2 = Label(w_data_frame, text = "date_added")
+date_added2.grid(row=2, column=0, padx = 7, pady =7)
+date_added_box2 = Entry(w_data_frame)
+date_added_box2.grid(row=2, column=1, padx = 7, pady =7)
 
-release_year1 = Label(w_data_frame, text = "release_year")
-release_year1.grid(row=2, column=2, padx = 7, pady =7)
-release_year_box = Entry(w_data_frame)
-release_year_box.grid(row=2, column=3, padx = 7, pady =7)
+release_year2 = Label(w_data_frame, text = "release_year")
+release_year2.grid(row=2, column=2, padx = 7, pady =7)
+release_year_box2 = Entry(w_data_frame)
+release_year_box2.grid(row=2, column=3, padx = 7, pady =7)
 
-r1 = Label(w_data_frame, text = "rating")
-r1.grid(row=2, column=4, padx = 7, pady =7)
-rating_box = Entry(w_data_frame)
-rating_box.grid(row=2, column=5, padx = 7, pady =7)
+r2 = Label(w_data_frame, text = "rating")
+r2.grid(row=2, column=4, padx = 7, pady =7)
+rating_box2 = Entry(w_data_frame)
+rating_box2.grid(row=2, column=5, padx = 7, pady =7)
 
-duration1 = Label(w_data_frame, text = "duration")
-duration1.grid(row=3, column=0, padx = 7, pady =7)
-duration_box = Entry(w_data_frame)
-duration_box.grid(row=3, column=1, padx = 7, pady =7)
+duration2= Label(w_data_frame, text = "duration")
+duration2.grid(row=3, column=0, padx = 7, pady =7)
+duration_box2 = Entry(w_data_frame)
+duration_box2.grid(row=3, column=1, padx = 7, pady =7)
 
-l1 = Label(w_data_frame, text = "listed_in")
-l1.grid(row=3, column=2, padx = 7, pady =7)
-listed_in_box = Entry(w_data_frame)
-listed_in_box.grid(row=3, column=3, padx = 7, pady =7)
+l2 = Label(w_data_frame, text = "listed_in")
+l2.grid(row=3, column=2, padx = 7, pady =7)
+listed_in_box2 = Entry(w_data_frame)
+listed_in_box2.grid(row=3, column=3, padx = 7, pady =7)
 
-description1 = Label(w_data_frame, text = "description")
-description1.grid(row=3, column=4, padx = 7, pady =7)
-description_box = Entry(w_data_frame)
-description_box.grid(row=3, column=5, padx = 7, pady =7)
+description2 = Label(w_data_frame, text = "description")
+description2.grid(row=3, column=4, padx = 7, pady =7)
+description_box2 = Entry(w_data_frame)
+description_box2.grid(row=3, column=5, padx = 7, pady =7)
 
 
 tree.bind("<ButtonRelease-1>", clicker)
@@ -385,7 +326,7 @@ description_box = Entry(data_frame)
 description_box.grid(row=3, column=5, padx = 7, pady =7)
 
 #add to watchlist Button
-add_record = Button(data_frame, text ="Add Record")
+add_record = ttk.Button(data_frame, text ="Add Record")
 add_record.grid(row=3, column=6, padx =7, pady=7)
 
 #create striped row tags
@@ -400,6 +341,64 @@ watch.bind("<ButtonRelease-1>", clicker)
 #adding Button
 w_button_frame = LabelFrame(watchlist_frame, text="Configure")
 w_button_frame.pack(fill = "x", expand = "yes", padx= 20)
+
+def select_record():
+    s_s_box.delete(0,END)
+    s_id_box.delete(0,END)
+    type_box.delete(0,END)
+    title_box.delete(0,END)
+    director_box.delete(0,END)
+    cast_box.delete(0,END)
+    country_box.delete(0,END)
+    date_added_box.delete(0,END)
+    release_year_box.delete(0,END)
+    rating_box.delete(0,END)
+    duration_box.delete(0,END)
+    listed_in_box.delete(0,END)
+    description_box.delete(0,END)
+
+    #Grab record number
+    selected = tree.focus()
+
+    #grab record VALUES
+    values = tree.item(selected, 'values')
+
+    s_s_box.insert(0, values[0])
+    s_id_box.insert(0, values[1])
+    type_box.insert(0, values[2])
+    title_box.insert(0, values[3])
+    director_box.insert(0, values[4])
+    cast_box.insert(0, values[5])
+    country_box.insert(0, values[6])
+    date_added_box.insert(0, values[7])
+    release_year_box.insert(0, values[8])
+    rating_box.insert(0, values[9])
+    duration_box.insert(0, values[10])
+    listed_in_box.insert(0, values[11])
+    description_box.insert(0, values[12])
+
+
+
+
+
+#add record
+def add_record():
+    watch.insert("", 0, values=(s_s_box.get(), s_id_box.get(), type_box.get(), title_box.get(), director_box.get(), cast_box.get(), country_box.get(), date_added_box.get(), release_year_box.get(), rating_box.get(), duration_box.get(), listed_in_box.get(), description_box.get()))
+
+#clear boxes
+    s_s_box.delete(0, END)
+    s_id_box.delete(0, END)
+    type_box.delete(0, END)
+    title_box.delete(0, END)
+    director_box.delete(0, END)
+    cast_box.delete(0, END)
+    country_box.delete(0, END)
+    date_added_box.delete(0, END)
+    release_year_box.delete(0, END)
+    rating_box.delete(0, END)
+    duration_box.delete(0, END)
+    listed_in_box.delete(0, END)
+    description_box.delete(0, END)
 
 
 
