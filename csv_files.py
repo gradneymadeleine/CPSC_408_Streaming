@@ -1,4 +1,17 @@
+import csv
+
+
 class csv_files():
+
+    netflix_csv = "netflix_files.csv"
+    hulu_csv = "hulu_titles.csv"
+    disney_csv = "disney_plus_files.csv"
+
+
+
+    # constructor
+    def __init__(self): 
+
     # function parses a string and converts to appropriate type
     @staticmethod
     def convert(value):
@@ -23,3 +36,10 @@ class csv_files():
             row = [csv_files.convert(i) for i in row]
             data_cleaned.append(tuple(row))
         return data_cleaned
+
+#    # loads streaming services files and cleans up data
+#     def load_files():
+#         netflix_data = self.data_cleaner(self.netflix_csv)
+#         hulu_data = self.data_cleaner(self.hulu_csv)
+#         disney_data = self.data_cleaner(self.disney_csv)
+#         return [netflix_data, hulu_data, disney_data]
