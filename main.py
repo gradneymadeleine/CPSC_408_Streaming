@@ -51,7 +51,7 @@ def pre_process_netflix():
     if is_empty_netflix():
         attribute_count = len(netflix_data[0])
         placeholders = ("%s,"*attribute_count)[:-1]
-        query = "INSERT INTO netflix(show_ID, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description) VALUES("+placeholders+")"
+        query = "INSERT INTO netflix(show_ID, show_movie, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary) VALUES("+placeholders+")"
         db_ops.bulk_insert(query, netflix_data) 
     else:
         return 
