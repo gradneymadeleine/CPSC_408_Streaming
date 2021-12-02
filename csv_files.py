@@ -3,9 +3,9 @@ import csv
 
 class csv_files():
 
-    netflix_csv = "netflix_files.csv"
+    netflix_csv = "netflix_titles.csv"
     hulu_csv = "hulu_titles.csv"
-    disney_csv = "disney_plus_files.csv"
+    disney_csv = "disney_plus_tiles.csv"
 
     # constructor
     def __init__(self): 

@@ -7,13 +7,13 @@ import csv
 db_ops = db_op()
 
 # load csv files and clean up data
-netflix_csv = "netflix_files.csv"
+netflix_csv = "netflix_titles.csv"
 netflix_data = csv_files.data_cleaner(netflix_csv)
 
 hulu_csv = "hulu_titles.csv"
 hulu_data = csv_files.data_cleaner(hulu_csv)
 
-disney_csv = "disney_plus_files.csv"
+disney_csv = "disney_plus_titles.csv"
 disney_data = csv_files.data_cleaner(disney_csv)
 
 
@@ -31,7 +31,7 @@ def pre_process_netflix():
         attribute_count = len(netflix_data)
         placeholders = ("%s,"*attribute_count)[:-1]
         query = '''INSERT INTO netflix(show_ID, type, title, director, cast, country, 
-                    date_added, release_year, rating, duration) VALUES("+placeholders+")'''
+                    date_added, release_year, rating, duration, listed_in, description) VALUES("+placeholders+")'''
         db_ops.bulk_insert(query, netflix_data) 
     else:
         return 
