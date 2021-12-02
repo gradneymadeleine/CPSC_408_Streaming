@@ -16,6 +16,15 @@ hulu_data = csv_files.data_cleaner(hulu_csv)
 disney_csv = "disney_plus_titles.csv"
 disney_data = csv_files.data_cleaner(disney_csv)
 
+# update show id's to make them unique to each streaming site
+for row in netflix_data:
+    row[0].replace("s", "N")
+
+for row in hulu_data:
+    row[0].replace("s", "H")
+
+for row in disney_data:
+    row[0].replace("s", "D")
 
 #  insert data
 def is_empty_netflix():
@@ -28,10 +37,9 @@ def is_empty_netflix():
 
 def pre_process_netflix():
     if is_empty_netflix():
-        attribute_count = len(netflix_data)
+        attribute_count = len(netflix_data[0])
         placeholders = ("%s,"*attribute_count)[:-1]
-        query = '''INSERT INTO netflix(show_ID, type, title, director, cast, country, 
-                    date_added, release_year, rating, duration, listed_in, description) VALUES("+placeholders+")'''
+        query = "INSERT INTO netflix(show_ID, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description) VALUES("+placeholders+")"
         db_ops.bulk_insert(query, netflix_data) 
     else:
         return 
