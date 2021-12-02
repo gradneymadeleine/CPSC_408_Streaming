@@ -8,23 +8,35 @@ db_ops = db_op()
 
 # load csv files and clean up data
 netflix_csv = "netflix_titles.csv"
-netflix_data = csv_files.data_cleaner(netflix_csv)
+netflix_cleaned = csv_files.data_cleaner(netflix_csv)
 
 hulu_csv = "hulu_titles.csv"
-hulu_data = csv_files.data_cleaner(hulu_csv)
+hulu_cleaned = csv_files.data_cleaner(hulu_csv)
 
 disney_csv = "disney_plus_titles.csv"
-disney_data = csv_files.data_cleaner(disney_csv)
+disney_cleaned = csv_files.data_cleaner(disney_csv)
 
 # update show id's to make them unique to each streaming site
-for row in netflix_data:
-    row[0].replace("s", "N")
+netflix_data = []
+hulu_data = []
+disney_data = []
 
-for row in hulu_data:
-    row[0].replace("s", "H")
+for row in netflix_cleaned[1:]:
+    updated_id = row[0].replace("s", "N")
+    netflix_row = [updated_id] + row[1:]
+    netflix_data.append(netflix_row)
+    
 
-for row in disney_data:
-    row[0].replace("s", "D")
+for row in hulu_cleaned[1:]:
+    updated_id = row[0].replace("s", "H")
+    hulu_row = [updated_id] + row[1:]
+    hulu_data.append(hulu_row)
+
+for row in disney_cleaned[1:]:
+    updated_id = row[0].replace("s", "D")
+    disney_row = [updated_id] + row[1:]
+    disney_data.append(disney_row)
+
 
 #  insert data
 def is_empty_netflix():

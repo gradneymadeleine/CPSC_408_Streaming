@@ -33,7 +33,7 @@ class csv_files():
         data_cleaned = []
         for row in data[:]:
             row = [csv_files.convert(i) for i in row]
-            data_cleaned.append(tuple(row))
+            data_cleaned.append(list(row))
         return data_cleaned
 
 #    # loads streaming services files and cleans up data
