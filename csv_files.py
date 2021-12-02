@@ -7,10 +7,9 @@ class csv_files():
     hulu_csv = "hulu_titles.csv"
     disney_csv = "disney_plus_files.csv"
 
-
-
     # constructor
     def __init__(self): 
+        pass
 
     # function parses a string and converts to appropriate type
     @staticmethod
