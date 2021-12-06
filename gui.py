@@ -37,7 +37,7 @@ summary VARCHAR(8000)
 )''')
 
 cur.execute(''' CREATE TABLE if not exists watchlist (
-show_id VARCHAR(10) NOT NULL,
+show_id VARCHAR(10) NOT NULL PRIMARY KEY,
 show_movies VARCHAR(10),
 title VARCHAR(250),
 director VARCHAR(300),
@@ -65,16 +65,16 @@ next(netflix_csv)
 #    netflix_data = cur.execute('INSERT INTO netflix(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
 
 conn.commit()
-conn.close()
+
 
 def query_database_net():
-    conn = mysql.connect(
-    host="34.121.245.150",
-    user='root',
-    password="Mpgradney2017",
-    database = "streaming")
+    #conn = mysql.connect(
+    #host="34.121.245.150",
+    #user='root',
+    #password="Mpgradney2017",
+    #database = "streaming")
 
-    cur = conn.cursor()
+    #cur = conn.cursor()
 
     cur.execute("SELECT * FROM netflix")
     records = cur.fetchall()
@@ -146,15 +146,18 @@ def query_database_watch():
 
 #create binding click function
 def clicker(event):
-    select_record()
+    select_record_tree()
+
+def clicker_watch(event):
+    select_record_watch()
 
 
 def add_record():
-    conn = mysql.connect(
-    host="34.121.245.150",
-    user='root',
-    password="Mpgradney2017",
-    database = "streaming")
+    #conn = mysql.connect(
+    #host="34.121.245.150",
+    #user='root',
+    #password="Mpgradney2017",
+    #database = "streaming")
 
     cur = conn.cursor()
 
@@ -169,9 +172,29 @@ def add_record():
     query = 'INSERT INTO watchlist(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s)'
     cur.execute(query, val)
     conn.commit()
+    conn.close()
+
 
     query_database_watch()
 
+def update_record():
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
+
+
+def delete_record():
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
 
 
 
@@ -263,15 +286,16 @@ tree.pack(pady=30)
 
 
 #add record entry boxes
-w_data_frame = LabelFrame(watchlist_frame, text="Record")
-w_data_frame.pack(fill = "x", expand = "yes", padx= 20)
 
 
 
 
-tree.bind("<ButtonRelease-1>", clicker)
+
+
 
 #add to watchlist button
+#add record entry boxes
+
 
 
 
@@ -322,6 +346,79 @@ watch.heading('description', text="description", anchor=W)
 
 watch.pack(pady=30)
 
+w_button_frame = LabelFrame(watchlist_frame, text="Records")
+w_button_frame.pack(fill = "x", expand = "yes", padx= 30)
+
+i1 = Label(w_button_frame, text="show_id")
+i1.grid(row=0, column=0, padx = 7, pady =7)
+s_id_box2 = Entry(w_button_frame)
+s_id_box2.grid(row=0, column=1, padx = 7, pady =7)
+
+t1 = Label(w_button_frame, text = "type")
+t1.grid(row=0, column=2, padx = 7, pady =7)
+type_box2 = Entry(w_button_frame)
+type_box2.grid(row=0, column=3,padx = 7, pady =7)
+
+title1 = Label(w_button_frame, text = "title")
+title1.grid(row=0, column=4, padx = 7, pady =7)
+title_box2 = Entry(w_button_frame)
+title_box2.grid(row=0, column=5, padx = 7, pady =7)
+
+d1 = Label(w_button_frame, text = "director")
+d1.grid(row=1, column=0,padx = 7, pady =7)
+director_box2 = Entry(w_button_frame)
+director_box2.grid(row=1, column=1,padx = 7, pady =7)
+
+c1 = Label(w_button_frame, text = "cast")
+c1.grid(row=1, column=2, padx = 7, pady =7)
+cast_box2 = Entry(w_button_frame)
+cast_box2.grid(row=1, column=3, padx = 7, pady =7)
+
+country1 = Label(w_button_frame, text = "country")
+country1.grid(row=1, column=4, padx = 7, pady =7)
+country_box2 = Entry(w_button_frame)
+country_box2.grid(row=1, column=5, padx = 7, pady =7)
+
+date_added1 = Label(w_button_frame, text = "date_added")
+date_added1.grid(row=2, column=0, padx = 7, pady =7)
+date_added_box2 = Entry(w_button_frame)
+date_added_box2.grid(row=2, column=1, padx = 7, pady =7)
+
+release_year1 = Label(w_button_frame, text = "release_year")
+release_year1.grid(row=2, column=2, padx = 7, pady =7)
+release_year_box2 = Entry(w_button_frame)
+release_year_box2.grid(row=2, column=3, padx = 7, pady =7)
+
+r1 = Label(w_button_frame, text = "rating")
+r1.grid(row=2, column=4, padx = 7, pady =7)
+rating_box2 = Entry(w_button_frame)
+rating_box2.grid(row=2, column=5, padx = 7, pady =7)
+
+duration1 = Label(w_button_frame, text = "duration")
+duration1.grid(row=3, column=0, padx = 7, pady =7)
+duration_box2 = Entry(w_button_frame)
+duration_box2.grid(row=3, column=1, padx = 7, pady =7)
+
+l1 = Label(w_button_frame, text = "listed_in")
+l1.grid(row=3, column=2, padx = 7, pady =7)
+listed_in_box2 = Entry(w_button_frame)
+listed_in_box2.grid(row=3, column=3, padx = 7, pady =7)
+
+description1 = Label(w_button_frame, text = "description")
+description1.grid(row=3, column=4, padx = 7, pady =7)
+description_box2 = Entry(w_button_frame)
+description_box2.grid(row=3, column=5, padx = 7, pady =7)
+
+#update to watchlist Button
+update_button = ttk.Button(w_button_frame, text ="Update Record", command = update_record)
+update_button.grid(row=3, column=6, padx =7, pady=7)
+
+delete_button = ttk.Button(w_button_frame, text ="Delete Record", command = delete_record)
+delete_button.grid(row=3, column=7, padx =7, pady=7)
+#create striped row tags
+
+watch.tag_configure('oddrow', background= "white")
+watch.tag_configure('evenrow', background= "light blue")
 
 #add record entry boxes
 data_frame = LabelFrame(database_frame, text="Record")
@@ -395,17 +492,14 @@ add_button.grid(row=3, column=7, padx =7, pady=7)
 #create striped row tags
 tree.tag_configure('oddrow', background= "white")
 tree.tag_configure('evenrow', background= "light blue")
-watch.tag_configure('oddrow', background= "white")
-watch.tag_configure('evenrow', background= "light blue")
 #binding
 
-watch.bind("<ButtonRelease-1>", clicker)
+watch.bind("<ButtonRelease-1>", clicker_watch)
 
 #adding Button
-w_button_frame = LabelFrame(watchlist_frame, text="Configure")
-w_button_frame.pack(fill = "x", expand = "yes", padx= 30)
 
-def select_record():
+
+def select_record_tree():
 
     s_id_box.delete(0,END)
     type_box.delete(0,END)
@@ -422,6 +516,7 @@ def select_record():
 
     #Grab record number
     selected = tree.focus()
+
 
     #grab record VALUES
     values = tree.item(selected, 'values')
@@ -454,6 +549,47 @@ def select_record():
     #duration_box.delete(0, END)
     #listed_in_box.delete(0, END)
     #description_box.delete(0, END)
+def select_record_watch():
+
+    s_id_box2.delete(0,END)
+    type_box2.delete(0,END)
+    title_box2.delete(0,END)
+    director_box2.delete(0,END)
+    cast_box2.delete(0,END)
+    country_box2.delete(0,END)
+    date_added_box2.delete(0,END)
+    release_year_box2.delete(0,END)
+    rating_box2.delete(0,END)
+    duration_box2.delete(0,END)
+    listed_in_box2.delete(0,END)
+    description_box2.delete(0,END)
+
+    #Grab record number
+    selected = watch.focus()
+
+
+    #grab record VALUES
+    values = watch.item(selected, 'values')
+
+
+    s_id_box2.insert(0, values[0])
+    type_box2.insert(0, values[1])
+    title_box2.insert(0, values[2])
+    director_box2.insert(0, values[3])
+    cast_box2.insert(0, values[4])
+    country_box2.insert(0, values[5])
+    date_added_box2.insert(0, values[6])
+    release_year_box2.insert(0, values[7])
+    rating_box2.insert(0, values[8])
+    duration_box2.insert(0, values[9])
+    listed_in_box2.insert(0, values[10])
+    description_box2.insert(0, values[11])
+
+
+
+#binding
+
+tree.bind("<ButtonRelease-1>", clicker)
 
 
 
