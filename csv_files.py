@@ -8,7 +8,7 @@ class csv_files():
     disney_csv = "disney_plus_tiles.csv"
 
     # constructor
-    def __init__(self): 
+    def __init__(self):
         pass
 
     # function parses a string and converts to appropriate type
