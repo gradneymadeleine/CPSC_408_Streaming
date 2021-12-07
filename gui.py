@@ -270,8 +270,6 @@ def search_records():
     cur.execute(search_query, val)
     records=cur.fetchall()
 
-    print(records)
-
     tree.delete(*tree.get_children())
 
     global count
@@ -296,14 +294,6 @@ def search_records():
         else:
             tree.insert("", 0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('oddrow',))
         count += 1
-
-    print(records)
-
-
-
-
-
-    messagebox.showinfo("Search!", "Here is the show/movie!")
 
     conn.commit()
     conn.close()
