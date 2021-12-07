@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import scrolledtext
 import mysql.connector as mysql
 from csv_files import csv_files
-from db_op import db_op#
+from tkinter import messagebox
 import csv
 #from insert import insert
 
@@ -68,6 +68,7 @@ conn.commit()
 
 
 def query_database_net():
+    #global show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description
     conn = mysql.connect(
     host="34.121.245.150",
     user='root',
@@ -228,6 +229,111 @@ def delete_record():
     database = "streaming")
 
     cur = conn.cursor()
+    #delete from database
+    selected = title_box2.get()
+    selected_data=iter(selected)
+    next(selected_data)
+
+    query = "DELETE FROM watchlist WHERE title = %s"
+    value = (selected,)
+    cur.execute(query,value)
+
+    conn.commit()
+    conn.close()
+
+
+
+    #add message Boxes
+    messagebox.showinfo("Deleted!", "Your Record has been deleted!")
+
+    watch.delete(*watch.get_children())
+    query_database_watch()
+
+def search_records():
+
+    #clear Treeview
+
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
+
+    lookup_record = search_entry.get()
+    #close search box
+    search.destroy()
+
+    search_query ="SELECT * FROM netflix WHERE title LIKE %s"
+    val = (lookup_record,)
+    cur.execute(search_query, val)
+    records=cur.fetchall()
+
+    print(records)
+
+    tree.delete(*tree.get_children())
+
+    global count
+    count = 0
+
+    for row in records:
+        show_id = row[0]
+        type = row[1]
+        title = row[2]
+        director = row[3]
+        cast = row[4]
+        country = row[5]
+        date_added = row[6]
+        release_year = row[7]
+        rating = row[8]
+        duration = row[9]
+        listed_in = row[10]
+        description = row[11]
+
+        if count % 2 == 0:
+            tree.insert("", 0, values=( show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('evenrow',))
+        else:
+            tree.insert("", 0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('oddrow',))
+        count += 1
+
+    print(records)
+
+
+
+
+
+    messagebox.showinfo("Search!", "Here is the show/movie!")
+
+    conn.commit()
+    conn.close()
+
+
+
+def lookup_records():
+    global search_entry, search
+    search = Toplevel(root)
+    search.title("Lookup Records")
+    root.geometry("1500x700")
+
+
+    #create Label
+    search_frame = LabelFrame(search, text="Title of Show/Movie")
+    search_frame.pack(fill = "x", expand = "yes", padx= 30)
+
+    #add entry box
+    search_entry = Entry(search_frame, font=("Helvetica", 18))
+    search_entry.grid(row=0,column=4, padx=10, pady=10)
+
+    #add Button
+    search_button = ttk.Button(search_frame, text= "Search Records", command=search_records)
+    search_button.grid(row=2, column=4, padx=20, pady=20)
+
+
+
+
+
+
 
 
 
@@ -237,6 +343,7 @@ def delete_record():
 root = Tk()
 root.title("Streaminfo.com -- see what streaming site what movie/show you want to watch is on")
 root.geometry("1500x700")
+
 
 
 tabs = ttk.Notebook(root)
@@ -622,6 +729,19 @@ def select_record_watch():
 
 tree.bind("<ButtonRelease-1>", clicker)
 
+#search menu
+my_menu = Menu(root)
+root.config(menu=my_menu)
+
+#option Menu
+# option_menu = Menu(my_menu, tearoff=0)
+# my_menu.add_cascade(label="Option")
+#add to watchlist Button
+search_menu_button = ttk.Button(data_frame, text ="Search Record", command = lookup_records)
+search_menu_button.grid(row=3, column=8, padx =7, pady=7)
+
+reset_button = ttk.Button(data_frame, text ="Back to Records", command = query_database_net)
+reset_button.grid(row=3, column=9, padx =7, pady=7)
 
 
 
