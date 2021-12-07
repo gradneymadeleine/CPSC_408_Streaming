@@ -68,15 +68,15 @@ conn.commit()
 
 
 def query_database_net():
-    #conn = mysql.connect(
-    #host="34.121.245.150",
-    #user='root',
-    #password="Mpgradney2017",
-    #database = "streaming")
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
 
-    #cur = conn.cursor()
+    cur = conn.cursor()
 
-    cur.execute("SELECT * FROM netflix")
+    cur.execute("SELECT DISTINCT * FROM netflix")
     records = cur.fetchall()
 
 
@@ -110,13 +110,14 @@ def query_database_watch():
     host="34.121.245.150",
     user='root',
     password="Mpgradney2017",
-    database = "streaming")
+     database = "streaming")
 
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM watchlist")
-    records = cur.fetchall()
 
+
+    cur.execute("SELECT DISTINCT * FROM watchlist")
+    records = cur.fetchall()
 
     global count
     count = 0
@@ -153,11 +154,11 @@ def clicker_watch(event):
 
 
 def add_record():
-    #conn = mysql.connect(
-    #host="34.121.245.150",
-    #user='root',
-    #password="Mpgradney2017",
-    #database = "streaming")
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
 
     cur = conn.cursor()
 
@@ -174,6 +175,9 @@ def add_record():
     conn.commit()
     conn.close()
 
+    #clear treeview table
+    watch.delete(*watch.get_children())
+
 
     query_database_watch()
 
@@ -186,6 +190,35 @@ def update_record():
 
     cur = conn.cursor()
 
+    # selected = watch.focus()
+    #
+    # watch.item(selected, text="", values=(s_id_box.get(),type_box.get(),title_box.get(),director_box.get(),cast_box.get(),country_box.get(),date_added_box.get(),release_year_box.get(),rating_box.get(),duration_box.get(),listed_in_box.get(),description_box.get()))
+    #
+    #
+    # cur.execute("""UPDATE watchlist SET
+    #
+    # show_ID = %s ,
+    # show_movies = %s,
+    # title, director = %s,
+    # actors = %s,
+    # country = %s,
+    # date_added = %s,
+    # release_year = %s,
+    # rating = %s,
+    # duration = %s,
+    # listed_in = %s,
+    # summary = %s
+    #
+    # WHERE oid = :oid""",
+    # {
+    #
+    #
+    # }
+    #
+    #
+    # )
+
+
 
 def delete_record():
     conn = mysql.connect(
@@ -195,8 +228,6 @@ def delete_record():
     database = "streaming")
 
     cur = conn.cursor()
-
-
 
 
 
