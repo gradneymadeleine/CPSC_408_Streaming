@@ -10,16 +10,16 @@ db_ops = db_op()
 netflix_csv ="netflix_titles.csv"
 netflix_cleaned = csv_files.data_cleaner(netflix_csv)
 
-#hulu_csv = "hulu_titles.csv"
-#hulu_cleaned = csv_files.data_cleaner(hulu_csv)
+hulu_csv = "hulu_titles.csv"
+hulu_cleaned = csv_files.data_cleaner(hulu_csv)
 
-#disney_csv = "disney_plus_titles.csv"
-#disney_cleaned = csv_files.data_cleaner(disney_csv)
+disney_csv = "disney_plus_titles.csv"
+disney_cleaned = csv_files.data_cleaner(disney_csv)
 
 # update show id's to make them unique to each streaming site
 netflix_data = []
-#hulu_data = []
-#disney_data = []
+hulu_data = []
+disney_data = []
 
 for row in netflix_cleaned[1:]:
     updated_id = row[0].replace("s", "N")
@@ -28,17 +28,15 @@ for row in netflix_cleaned[1:]:
     netflix_T = tuple(netflix_data)
 
 
+for row in hulu_cleaned[1:]:
+   updated_id = row[0].replace("s", "H")
+   hulu_row = [updated_id] + row[1:]
+   hulu_data.append(hulu_row)
 
-
-#for row in hulu_cleaned[1:]:
-#    updated_id = row[0].replace("s", "H")
-#    hulu_row = [updated_id] + row[1:]
-#    hulu_data.append(hulu_row)
-
-#for row in disney_cleaned[1:]:
-#    updated_id = row[0].replace("s", "D")
-#    disney_row = [updated_id] + row[1:]
-#    disney_data.append(disney_row)
+for row in disney_cleaned[1:]:
+   updated_id = row[0].replace("s", "D")
+   disney_row = [updated_id] + row[1:]
+   disney_data.append(disney_row)
 
 
 #  insert data
