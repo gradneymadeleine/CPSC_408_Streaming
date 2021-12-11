@@ -38,7 +38,7 @@ class Login:
         self.create_elements()
         self.root.mainloop()
 
-    def create_elements():
+    def create_elements(self):
         self.username = Label(self.root, text="Username:", font=('Verdana', 14, 'bold'))
         self.username.place(x=50, y=50)
 

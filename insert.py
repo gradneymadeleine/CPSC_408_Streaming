@@ -2,9 +2,6 @@ import csv
 import mysql.connector as mysql
 
 
-
-
-
 conn = mysql.connect(
 host="34.121.245.150",
 user='root',
