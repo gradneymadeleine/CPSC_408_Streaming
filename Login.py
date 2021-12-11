@@ -30,7 +30,7 @@ disney BIT(1)
 )''')
 
 #create login class ClassName(object):
-class Login:
+class login:
     def __init__(self,root):
         self.root = Tk()
         self.root.title("Login and registration system for Apps")
@@ -172,4 +172,4 @@ class Register():
             showinfo("Failed","Your information couldn't save successfully!")
 
 if __name__ == '__main__':
-    login = Login()
+    login = login()
