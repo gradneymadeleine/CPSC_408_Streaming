@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 import mysql.connector as mysql
-from csv_files import csv_files
 from tkinter import messagebox
 import csv
 #from insert import insert
@@ -181,6 +180,26 @@ def add_record():
 
 
     query_database_watch()
+
+
+def export_watchlist():
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
+
+    query = 'SELECT * FROM watchlist;'
+    cur.execute(query)
+    result = cur.fetchall()
+
+    writer = csv.writer(open('watchlist_export.csv', 'wb'))
+    for row in result:
+        writer.writerow(row)
+
+
 
 def update_record():
     conn = mysql.connect(
@@ -414,12 +433,6 @@ tree.pack(pady=30)
 
 
 #add record entry boxes
-
-
-
-
-
-
 
 #add to watchlist button
 #add record entry boxes
@@ -677,6 +690,7 @@ def select_record_tree():
     #duration_box.delete(0, END)
     #listed_in_box.delete(0, END)
     #description_box.delete(0, END)
+
 def select_record_watch():
 
     s_id_box2.delete(0,END)
@@ -695,10 +709,8 @@ def select_record_watch():
     #Grab record number
     selected = watch.focus()
 
-
     #grab record VALUES
     values = watch.item(selected, 'values')
-
 
     s_id_box2.insert(0, values[0])
     type_box2.insert(0, values[1])
