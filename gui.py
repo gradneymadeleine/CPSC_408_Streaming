@@ -195,7 +195,7 @@ def export_watchlist():
     cur.execute(query)
     result = cur.fetchall()
 
-    writer = csv.writer(open('watchlist_export.csv', 'wb'))
+    writer = csv.writer(open('watchlist_export.csv', 'w'))
     for row in result:
         writer.writerow(row)
 
@@ -259,7 +259,6 @@ def delete_record():
 
     conn.commit()
     conn.close()
-
 
 
     #add message Boxes
@@ -550,9 +549,9 @@ description1.grid(row=3, column=4, padx = 7, pady =7)
 description_box2 = Entry(w_button_frame)
 description_box2.grid(row=3, column=5, padx = 7, pady =7)
 
-#update to watchlist Button
-update_button = ttk.Button(w_button_frame, text ="Update Record", command = update_record)
-update_button.grid(row=3, column=6, padx =7, pady=7)
+#export to watchlist Button
+export_button = ttk.Button(w_button_frame, text ="Export Watchlist", command = export_watchlist)
+export_button.grid(row=3, column=6, padx =7, pady=7)
 
 delete_button = ttk.Button(w_button_frame, text ="Delete Record", command = delete_record)
 delete_button.grid(row=3, column=7, padx =7, pady=7)
@@ -638,7 +637,6 @@ tree.tag_configure('evenrow', background= "light blue")
 watch.bind("<ButtonRelease-1>", clicker_watch)
 
 #adding Button
-
 
 def select_record_tree():
 
