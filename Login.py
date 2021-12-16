@@ -1,6 +1,5 @@
 from tkinter import *
-from PIL import ImageTk
-import tkinter.messagebox
+from tkinter.messagebox import *
 from tkinter import ttk
 import mysql.connector as mysql
 
@@ -18,27 +17,20 @@ cur = mydb.cursor()
 print("Connection made...")
 
 
-cur.execute('''CREATE TABLE if not exists user (
-id INT NOT NULL,
-username VARCHAR(30) NOT NULL,
-password TEXT NOT NULL,
-country TEXT NOT NULL,
-netflix BIT(1),
-hulu BIT(1),
-disney BIT(1)
+from tkinter import *
+import mysql.connector as mysql
+from tkinter.messagebox import *
 
-)''')
-
-#create login class ClassName(object):
-class login:
-    def __init__(self,root):
+class Login():
+    def __init__(self):
         self.root = Tk()
-        self.root.title("Login and registration system for Apps")
-        self.root.geometry("1500x700+0+0")
+        self.root.geometry("400x300")
+        self.root.title("Login Window")
         self.create_elements()
         self.root.mainloop()
 
     def create_elements(self):
+
         self.username = Label(self.root, text="Username:", font=('Verdana', 14, 'bold'))
         self.username.place(x=50, y=50)
 
@@ -51,14 +43,15 @@ class login:
         self.entry_password = Entry(self.root, font=('Verdana', 14))
         self.entry_password.place(x=160, y=90)
 
-        self.login_button = ttk.Button(self.root, text="Login", height=2, width=10, command=self.login_user)
+        self.login_button = Button(self.root, text="Login", height=2, width=10, command=self.login_user)
         self.login_button.place(x=50, y=160)
 
         self.new_user = Label(self.root, text="New User?", font=('Verdana', 10, 'bold'))
         self.new_user.place(x=150, y=140)
 
-        self.register_button = ttk.Button(self.root, text="Sign Up", height=2, width=10, command=self.destroy_login)
+        self.register_button = Button(self.root, text="Sign Up", height=2, width=10, command=self.destroy_login)
         self.register_button.place(x=150, y=160)
+
 
     def destroy_login(self):
         self.root.destroy()
@@ -91,10 +84,11 @@ class login:
         else:
             showinfo("Failed","You've entered wrong credentials!")
 
+
 class Register():
     def __init__(self):
         self.root = Tk()
-        self.root.geometry("1500x700")
+        self.root.geometry("500x300")
         self.root.title("Register Window")
         self.create_elements()
         self.root.mainloop()
@@ -119,13 +113,13 @@ class Register():
         self.entry_name = Entry(self.root, font=('Verdana', 14))
         self.entry_name.place(x=160, y=130)
 
-        self.register_button = ttk.Button(self.root, text="Sign Up", height=2, width=10, command=self.register_user)
+        self.register_button = Button(self.root, text="Sign Up", height=2, width=10, command=self.register_user)
         self.register_button.place(x=50, y=180)
 
         self.existing_user = Label(self.root, text="Existing User?", font=('Verdana', 10, 'bold'))
         self.existing_user.place(x=150, y=160)
 
-        self.login_button = ttk.Button(self.root, text="Login", height=2, width=10, command=self.destroy_register)
+        self.login_button = Button(self.root, text="Login", height=2, width=10, command=self.destroy_register)
         self.login_button.place(x=150, y=180)
 
     def destroy_register(self):
@@ -171,5 +165,6 @@ class Register():
         else:
             showinfo("Failed","Your information couldn't save successfully!")
 
+
 if __name__ == '__main__':
-    login = login()
+    login = Login()
