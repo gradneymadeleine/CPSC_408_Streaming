@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.messagebox import *
 from tkinter import ttk
 import mysql.connector as mysql
+from gui import gui
 
 
 
@@ -17,9 +18,6 @@ cur = mydb.cursor()
 print("Connection made...")
 
 
-from tkinter import *
-import mysql.connector as mysql
-from tkinter.messagebox import *
 
 class Login():
     def __init__(self):
@@ -80,7 +78,8 @@ class Login():
         self.entry_username.delete(0, END)
         self.entry_password.delete(0, END)
         if result:
-            showinfo("Success","You're logged in!")
+            self.root.destory()
+            streamingsite = StreamingGui()
         else:
             showinfo("Failed","You've entered wrong credentials!")
 
