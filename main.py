@@ -4,7 +4,7 @@ from db_op import db_op
 import csv
 
 # connect to database
-db_ops = db_op()
+# db_ops = db_op()
 
 # load csv files and clean up data
 netflix_csv ="netflix_titles.csv"
@@ -20,6 +20,8 @@ disney_cleaned = csv_files.data_cleaner(disney_csv)
 netflix_data = []
 hulu_data = []
 disney_data = []
+
+header = netflix_cleaned[0]
 
 for row in netflix_cleaned[1:]:
     updated_id = row[0].replace("s", "N")
@@ -37,25 +39,45 @@ for row in disney_cleaned[1:]:
    updated_id = row[0].replace("s", "D")
    disney_row = [updated_id] + row[1:]
    disney_data.append(disney_row)
+   
+   
+# update csv files 
+netflix_writer = csv.writer(open('netflix_titles.csv', 'w'))
+netflix_writer.writerow(header)
+for row in netflix_data:
+    netflix_writer.writerow(row)
+
+hulu_writer = csv.writer(open('hulu_titles.csv', 'w'))
+hulu_writer.writerow(header)
+for row in hulu_data:
+    hulu_writer.writerow(row)
+
+disney_writer = csv.writer(open('disney_plus_titles.csv', 'w'))
+disney_writer.writerow(header)
+for row in disney_data:
+    disney_writer.writerow(row)
 
 
-#  insert data
-def is_empty_netflix():
-   query = '''
-   SELECT COUNT(*)
-   FROM netflix;
-   '''
-   result = db_ops.single_record(query)
-   return result == 0
 
-def pre_process_netflix():
-    if is_empty_netflix():
-        attribute_count = len(netflix_data[0])
-        placeholders = ("%s,"*attribute_count)[:-1]
-        query = "INSERT INTO netflix(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary) VALUES("+placeholders+")"
-        db_ops.bulk_insert(query, netflix_T)
-    else:
-        return
+# #  insert data
+# def is_empty_netflix():
+#    query = '''
+#    SELECT COUNT(*)
+#    FROM netflix;
+#    '''
+#    result = db_ops.single_record(query)
+#    return result == 0
 
+# def pre_process_netflix():
+#     if is_empty_netflix():
+#         attribute_count = len(netflix_data[0])
+#         placeholders = ("%s,"*attribute_count)[:-1]
+#         query = "INSERT INTO netflix(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary) VALUES("+placeholders+")"
+#         db_ops.bulk_insert(query, netflix_T)
+#     else:
+#         return
 
+# print(netflix_data)
 #pre_process_netflix()
+
+# print(netflix_cleaned[0])

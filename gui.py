@@ -245,21 +245,27 @@ def delete_record():
     database = "streaming")
 
     cur = conn.cursor()
-    #delete from database
-    selected = title_box2.get()
-    selected_data=iter(selected)
-    next(selected_data)
 
-    query = "DELETE FROM watchlist WHERE title = %s"
-    value = (selected,)
-    cur.execute(query,value)
+    try:
+        #delete from database
+        selected = title_box2.get()
+        selected_data=iter(selected)
+        next(selected_data)
 
-    conn.commit()
+        query = "DELETE FROM watchlist WHERE title = %s"
+        value = (selected,)
+        cur.execute(query,value)
+
+        conn.commit()
+    
+
+        #add message Boxes
+        messagebox.showinfo("Deleted!", "Your record has been deleted!")
+    except:
+        messagebox.showinfo("ERROR", "Your record was NOT deleted.")
+        conn.rollback()
+
     conn.close()
-
-
-    #add message Boxes
-    messagebox.showinfo("Deleted!", "Your Record has been deleted!")
 
     watch.delete(*watch.get_children())
     query_database_watch()
