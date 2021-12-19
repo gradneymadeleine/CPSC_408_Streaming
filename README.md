@@ -10,17 +10,17 @@ Files Included:
 - hulu_titles.csv
 - disney_plus_titles.csv
 - gui.py
-- insert.py
 - login.py
-- db_op.py
-- csv_files.py
 - create_db.py
-- app.py
 
 Run Instructions:
 - Instance's public IP address: 34.121.245.150
 - Name of database: 'streaming'
+- Run 'python3 gui.py' in the command line for steaming site and watchlist application
+- Run 'python3 login.py' for the separate user login
 
-
-References: 
+Known Errors:
+- watched column does not display correctly
+- login is not connected to gui 
+- view is written and compiles but is not connected
 
