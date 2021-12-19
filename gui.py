@@ -74,7 +74,8 @@ release_year VARCHAR(7),
 rating VARCHAR(10),
 duration VARCHAR(20),
 listed_in VARCHAR(100),
-summary VARCHAR(8000)
+summary VARCHAR(8000),
+watched INT DEFAULT 0
 )''')
 
 print("Created tables")
@@ -319,34 +320,14 @@ def update_record():
 
     cur = conn.cursor()
 
+    query = 'UPDATE watchlist SET watched = 0 WHERE watched = 1;'
+
+
     # selected = watch.focus()
     #
     # watch.item(selected, text="", values=(s_id_box.get(),type_box.get(),title_box.get(),director_box.get(),cast_box.get(),country_box.get(),date_added_box.get(),release_year_box.get(),rating_box.get(),duration_box.get(),listed_in_box.get(),description_box.get()))
     #
-    #
-    # cur.execute("""UPDATE watchlist SET
-    #
-    # show_ID = %s ,
-    # show_movies = %s,
-    # title, director = %s,
-    # actors = %s,
-    # country = %s,
-    # date_added = %s,
-    # release_year = %s,
-    # rating = %s,
-    # duration = %s,
-    # listed_in = %s,
-    # summary = %s
-    #
-    # WHERE oid = :oid""",
-    # {
-    #
-    #
-    # }
-    #
-    #
-    # )
-
+    
 
 
 def delete_record():
@@ -559,7 +540,7 @@ scrollbary.config(command=watch.yview)
 scrollbary.pack(side=RIGHT, fill=Y)
 scrollbarx.config(command=watch.xview)
 scrollbarx.pack(side=BOTTOM, fill=X)
-watch['columns']=( "show_id", "type", "title", "director", "cast", "country", "date_added","release_year", "rating", "duration", "listed_in", "description" )
+watch['columns']=( "show_id", "type", "title", "director", "cast", "country", "date_added","release_year", "rating", "duration", "listed_in", "description","watched" )
 #create columns
 watch.column('#0', width=0)
 watch.column('show_id', anchor=W, width=80)
@@ -574,6 +555,7 @@ watch.column('rating', anchor=W, width=120)
 watch.column('duration', anchor=W, width=120)
 watch.column('listed_in', anchor=W, width=300)
 watch.column('description', anchor=W, width=500)
+watch.column('watched', anchor=W, width=175)
 
 #create headings
 watch.heading('show_id', text="show_id", anchor=W)
@@ -588,6 +570,8 @@ watch.heading('rating', text="rating", anchor=W)
 watch.heading('duration', text="duration", anchor=W)
 watch.heading('listed_in', text="listed_in", anchor=W)
 watch.heading('description', text="description", anchor=W)
+watch.heading('watched', text="watched", anchor=W)
+
 
 watch.pack(pady=30)
 
