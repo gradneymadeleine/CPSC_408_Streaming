@@ -743,5 +743,5 @@ query_database_net()
 query_database_watch()
 
 #============================INITIALIZATION==============================
-#if __name__ == '__main__':
-#    root.mainloop()
+if __name__ == '__main__':
+   root.mainloop()
