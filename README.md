@@ -19,6 +19,7 @@ Files Included:
 
 Run Instructions:
 - Instance's public IP address: 34.121.245.150
+- Name of database: 'streaming'
 
 
 References: 
