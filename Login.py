@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter.messagebox import *
 from tkinter import ttk
 import mysql.connector as mysql
-from gui import gui
-
 
 
 #connecting to the database
@@ -18,68 +16,72 @@ cur = mydb.cursor()
 print("Connection made...")
 
 
-def __init__(self):
-    self.root = Tk()
-    self.root.geometry("400x300")
-    self.root.title("Login Window")
-    self.create_elements()
-    self.root.mainloop()
 
-def create_elements(self):
+class Login():
+    def __init__(self):
+        self.root = Tk()
+        self.root.geometry("400x300")
+        self.root.title("Login Window")
+        self.create_elements()
+        self.root.mainloop()
 
-    self.username = Label(self.root, text="Username:", font=('Verdana', 14, 'bold'))
-    self.username.place(x=50, y=50)
+    def create_elements(self):
 
-    self.entry_username = Entry(self.root, font=('Verdana', 14))
-    self.entry_username.place(x=160, y=50)
+        self.username = Label(self.root, text="Username:", font=('Verdana', 14, 'bold'))
+        self.username.place(x=50, y=50)
 
-    self.password = Label(self.root, text="Password:", font=('Verdana', 14, 'bold'))
-    self.password.place(x=50, y=90)
+        self.entry_username = Entry(self.root, font=('Verdana', 14))
+        self.entry_username.place(x=160, y=50)
 
-    self.entry_password = Entry(self.root, font=('Verdana', 14))
-    self.entry_password.place(x=160, y=90)
+        self.password = Label(self.root, text="Password:", font=('Verdana', 14, 'bold'))
+        self.password.place(x=50, y=90)
 
-    self.login_button = Button(self.root, text="Login", height=2, width=10, command=self.login_user)
-    self.login_button.place(x=50, y=160)
+        self.entry_password = Entry(self.root, font=('Verdana', 14))
+        self.entry_password.place(x=160, y=90)
 
-    self.new_user = Label(self.root, text="New User?", font=('Verdana', 10, 'bold'))
-    self.new_user.place(x=150, y=140)
+        self.login_button = Button(self.root, text="Login", height=2, width=10, command=self.login_user)
+        self.login_button.place(x=50, y=160)
 
-    self.register_button = Button(self.root, text="Sign Up", height=2, width=10, command=self.destroy_login)
-    self.register_button.place(x=150, y=160)
+        self.new_user = Label(self.root, text="New User?", font=('Verdana', 10, 'bold'))
+        self.new_user.place(x=150, y=140)
 
-
-def destroy_login(self):
-    self.root.destroy()
-    register = Register()
-
-def login_user(self):
-    username = self.entry_username.get()
-    userpassword = self.entry_password.get()
-
-    if(username == "" or userpassword == ""):
-        showinfo("Oops!","Your information can't be empty!")
-        return
-
-    mydb = mysql.connect(
-    host="34.121.245.150",
-    user='root',
-    password="Mpgradney2017",
-    database = "streaming")
+        self.register_button = Button(self.root, text="Sign Up", height=2, width=10, command=self.destroy_login)
+        self.register_button.place(x=150, y=160)
 
 
-    mycursor = mydb.cursor()
-    sql = "select user, pass from users where user=%s and pass=%s"
-    val = (username, userpassword)
-    mycursor.execute(sql, val)
-    result = mycursor.fetchone()
-    self.entry_username.delete(0, END)
-    self.entry_password.delete(0, END)
-    if result:
-        self.root.destory()
-        streamingsite = StreamingGui()
-    else:
-        showinfo("Failed","You've entered wrong credentials!")
+    def destroy_login(self):
+        self.root.destroy()
+        register = Register()
+
+
+
+    def login_user(self):
+        username = self.entry_username.get()
+        userpassword = self.entry_password.get()
+
+        if(username == "" or userpassword == ""):
+            showinfo("Oops!","Your information can't be empty!")
+            return
+
+        mydb = mysql.connect(
+        host="34.121.245.150",
+        user='root',
+        password="Mpgradney2017",
+        database = "streaming")
+
+
+        mycursor = mydb.cursor()
+        sql = "select user, pass from users where user=%s and pass=%s"
+        val = (username, userpassword)
+        mycursor.execute(sql, val)
+        result = mycursor.fetchone()
+        self.entry_username.delete(0, END)
+        self.entry_password.delete(0, END)
+        if result:
+            showinfo("Try destorying")
+
+        else:
+            showinfo("Failed","You've entered wrong credentials!")
 
 
 class Register():
@@ -121,7 +123,7 @@ class Register():
 
     def destroy_register(self):
         self.root.destroy()
-        # login = Login()
+        login = Login()
 
     def register_user(self):
         username = self.entry_username.get()

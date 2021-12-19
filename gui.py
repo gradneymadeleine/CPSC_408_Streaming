@@ -33,6 +33,34 @@ duration VARCHAR(20),
 listed_in VARCHAR(100),
 summary VARCHAR(8000)
 )''')
+cur.execute('''CREATE TABLE if not exists hulu (
+show_id VARCHAR(10) NOT NULL PRIMARY KEY,
+show_movies VARCHAR(10),
+title VARCHAR(250),
+director VARCHAR(300),
+actors VARCHAR(800),
+country VARCHAR(550),
+date_added VARCHAR(20),
+release_year VARCHAR(7),
+rating VARCHAR(10),
+duration VARCHAR(20),
+listed_in VARCHAR(100),
+summary VARCHAR(8000)
+)''')
+cur.execute('''CREATE TABLE if not exists disney (
+show_id VARCHAR(10) NOT NULL PRIMARY KEY,
+show_movies VARCHAR(10),
+title VARCHAR(250),
+director VARCHAR(300),
+actors VARCHAR(800),
+country VARCHAR(550),
+date_added VARCHAR(20),
+release_year VARCHAR(7),
+rating VARCHAR(10),
+duration VARCHAR(20),
+listed_in VARCHAR(100),
+summary VARCHAR(8000)
+)''')
 
 cur.execute(''' CREATE TABLE if not exists watchlist (
 show_id VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -56,7 +84,13 @@ file = open('netflix_titles.csv')
 netflix_csv = csv.reader(file)
 next(netflix_csv)
 
+file = open('disney_plus_titles.csv')
+disney_csv = csv.reader(file)
+next(disney_csv)
 
+file = open('hulu_titles.csv')
+hulu_csv = csv.reader(file)
+next(hulu_csv)
 
 #for row in netflix_csv:
 #    netflix_data = cur.execute('INSERT INTO netflix(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
@@ -75,6 +109,84 @@ def query_database_net():
     cur = conn.cursor()
 
     cur.execute("SELECT DISTINCT * FROM netflix")
+    records = cur.fetchall()
+
+
+    global count
+    count = 0
+
+    for row in records:
+        show_id = row[0]
+        type = row[1]
+        title = row[2]
+        director = row[3]
+        cast = row[4]
+        country = row[5]
+        date_added = row[6]
+        release_year = row[7]
+        rating = row[8]
+        duration = row[9]
+        listed_in = row[10]
+        description = row[11]
+
+        if count % 2 ==0:
+            tree.insert("",0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('evenrow',))
+        else:
+            tree.insert("",0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('oddrow',))
+        count += 1
+
+    conn.commit()
+
+def query_database_disney():
+    #global show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
+
+    cur.execute("SELECT DISTINCT * FROM disney")
+    records = cur.fetchall()
+
+
+    global count
+    count = 0
+
+    for row in records:
+        show_id = row[0]
+        type = row[1]
+        title = row[2]
+        director = row[3]
+        cast = row[4]
+        country = row[5]
+        date_added = row[6]
+        release_year = row[7]
+        rating = row[8]
+        duration = row[9]
+        listed_in = row[10]
+        description = row[11]
+
+        if count % 2 ==0:
+            tree.insert("",0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('evenrow',))
+        else:
+            tree.insert("",0, values=(show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description), tags=('oddrow',))
+        count += 1
+
+    conn.commit()
+
+def query_database_hulu():
+    #global show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description
+    conn = mysql.connect(
+    host="34.121.245.150",
+    user='root',
+    password="Mpgradney2017",
+    database = "streaming")
+
+    cur = conn.cursor()
+
+    cur.execute("SELECT DISTINCT * FROM hulu")
     records = cur.fetchall()
 
 
@@ -257,7 +369,7 @@ def delete_record():
         cur.execute(query,value)
 
         conn.commit()
-    
+
 
         #add message Boxes
         messagebox.showinfo("Deleted!", "Your record has been deleted!")
@@ -271,7 +383,7 @@ def delete_record():
     query_database_watch()
 
 def search_records():
-    
+
     #clear Treeview
 
     conn = mysql.connect(
@@ -744,4 +856,4 @@ query_database_watch()
 
 #============================INITIALIZATION==============================
 if __name__ == '__main__':
-   root.mainloop()
+    root.mainloop()
