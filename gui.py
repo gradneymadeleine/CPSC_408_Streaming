@@ -660,6 +660,9 @@ export_button.grid(row=3, column=6, padx =7, pady=7)
 
 delete_button = ttk.Button(w_button_frame, text ="Delete Record", command = delete_record)
 delete_button.grid(row=3, column=7, padx =7, pady=7)
+
+update_button = ttk.Button(w_button_frame, text ="Mark as Watched", command = update_record)
+update_button.grid(row=3, column=9, padx =7, pady=7)
 #create striped row tags
 
 watch.tag_configure('oddrow', background= "white")
