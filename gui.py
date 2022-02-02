@@ -81,20 +81,29 @@ watched INT DEFAULT 0
 print("Created tables")
 
 
-file = open('netflix_titles.csv')
-netflix_csv = csv.reader(file)
-next(netflix_csv)
+#file = open('netflix_titles.csv')
+#netflix_csv = csv.reader(file)
+#next(netflix_csv)
+#print("printing netflix record")
 
 file = open('disney_plus_titles.csv')
 disney_csv = csv.reader(file)
 next(disney_csv)
 
-file = open('hulu_titles.csv')
-hulu_csv = csv.reader(file)
-next(hulu_csv)
+#file = open('hulu_titles.csv')
+#hulu_csv = csv.reader(file)
+#next(hulu_csv)
 
 #for row in netflix_csv:
 #    netflix_data = cur.execute('INSERT INTO netflix(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
+#    print("printing netflix record")
+
+
+#for row in disney_csv:
+#    disney_data = cur.execute('INSERT INTO disney(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
+
+#for row in hulu_csv:
+#    hulu_data = cur.execute('INSERT INTO hulu(show_ID, show_movies, title, director, actors, country, date_added, release_year, rating, duration, listed_in, summary)' 'VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
 
 conn.commit()
 
@@ -323,11 +332,7 @@ def update_record():
     query = 'UPDATE watchlist SET watched = 0 WHERE watched = 1;'
 
 
-    # selected = watch.focus()
-    #
-    # watch.item(selected, text="", values=(s_id_box.get(),type_box.get(),title_box.get(),director_box.get(),cast_box.get(),country_box.get(),date_added_box.get(),release_year_box.get(),rating_box.get(),duration_box.get(),listed_in_box.get(),description_box.get()))
-    #
-    
+
 
 
 def delete_record():
@@ -350,8 +355,6 @@ def delete_record():
         cur.execute(query,value)
 
         conn.commit()
-
-
         #add message Boxes
         messagebox.showinfo("Deleted!", "Your record has been deleted!")
     except:
@@ -379,7 +382,7 @@ def search_records():
     #close search box
     search.destroy()
 
-    search_query ="SELECT * FROM netflix WHERE title LIKE %s"
+    search_query ="SELECT * FROM disney WHERE title LIKE %s"
     val = (lookup_record,)
     cur.execute(search_query, val)
     records=cur.fetchall()
@@ -556,7 +559,6 @@ watch.column('duration', anchor=W, width=120)
 watch.column('listed_in', anchor=W, width=300)
 watch.column('description', anchor=W, width=500)
 watch.column('watched', anchor=W, width=175)
-
 #create headings
 watch.heading('show_id', text="show_id", anchor=W)
 watch.heading('type', text="type", anchor=W)
@@ -571,7 +573,6 @@ watch.heading('duration', text="duration", anchor=W)
 watch.heading('listed_in', text="listed_in", anchor=W)
 watch.heading('description', text="description", anchor=W)
 watch.heading('watched', text="watched", anchor=W)
-
 
 watch.pack(pady=30)
 
@@ -832,13 +833,15 @@ root.config(menu=my_menu)
 search_menu_button = ttk.Button(data_frame, text ="Search Record", command = lookup_records)
 search_menu_button.grid(row=3, column=8, padx =7, pady=7)
 
-reset_button = ttk.Button(data_frame, text ="Back to Records", command = query_database_net)
+reset_button = ttk.Button(data_frame, text ="Back to Records", command =  query_database_disney())
 reset_button.grid(row=3, column=9, padx =7, pady=7)
 
 
 
 # run to pull data rrom database on start
 query_database_net()
+query_database_disney()
+query_database_hulu()
 query_database_watch()
 
 #============================INITIALIZATION==============================
